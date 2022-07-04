@@ -1,20 +1,30 @@
 class Solution {
 public:
-    vector<string> wordBreak(string s, vector<string>& wordDict) {
-        vector<string> res;
-        
-        for(string w: wordDict){
-            if(s.substr(0,w.length()) == w){
-                if(w.length()==s.length())
-                    res.push_back(w);
-                else{
-                    vector<string> temp = wordBreak(s.substr(w.length()), wordDict);
-                    for(string t: temp)
-                        res.push_back(w + " " + t);
-                }
-            }               
+    
+    vector<string> help(string s, vector<string> b){
+        if(!s.size()){
+            return {""};
         }
-        
-        return res;
+        vector<string> ans;
+        set<string> chk;    //check if cur has already occurred
+        for(auto cur:b){
+            if(chk.find(cur)!=chk.end()) continue;
+            chk.insert(cur);
+            if(s.substr(0,cur.size())==cur){
+                    vector<string> small=help(s.substr(cur.size()),b);
+
+                    for(auto sen:small){
+
+                        (sen.size())?ans.push_back(cur+" "+sen):ans.push_back(cur);
+                    }
+            }
+        }
+        return ans;
+    }
+    
+    vector<string> wordBreak(string s, vector<string>& b) {
+        vector<string> ans= help(s,b);
+        sort(ans.begin(),ans.end());
+        return ans;
     }
 };
