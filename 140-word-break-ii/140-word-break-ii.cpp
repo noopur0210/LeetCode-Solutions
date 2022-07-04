@@ -24,7 +24,6 @@ public:
     
     vector<string> wordBreak(string s, vector<string>& b) {
         vector<string> ans= help(s,b);
-        sort(ans.begin(),ans.end());
         return ans;
     }
 };
