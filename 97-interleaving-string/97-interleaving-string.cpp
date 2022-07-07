@@ -3,6 +3,8 @@ public:
     
     bool solution(string s1, string s2, string s3, int i, int j, int k, vector<vector<int>>& dp){
         
+        if(s3.length() != s1.length()+s2.length())  return false;
+        
         if(dp[i][j]!=-1)    return dp[i][j];
         
         if(i==s1.length() && j==s2.length() && k==s3.length())  return true;
@@ -23,9 +25,6 @@ public:
     }
     
     bool isInterleave(string s1, string s2, string s3) {
-        
-        if(s3.length() != s1.length()+s2.length())  return false;
-        
         
         int a=s1.length(), b=s2.length();
         vector<vector<int>> dp(a+1,vector<int>(b+1,-1));
